@@ -6,6 +6,8 @@ import sqlite3
 import platform
 from datetime import datetime
 
+#TODO: add base repo where hint is used in db so we can filter on the specific repo to get past conversations for better context
+
 def get_user_data_directory():
     if platform.system() == 'Windows':
         return os.getenv('LOCALAPPDATA') or os.getenv('APPDATA')
@@ -52,7 +54,8 @@ def load_conversations():
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
     c.execute('SELECT role, content, metadata, timestamp FROM conversations ORDER BY id DESC LIMIT 10')
-    conversations = [{"role": row[0], "content": row[1], "metadata": json.loads(row[2]) if row[2] else {}, "timestamp": row[3]} for row in c.fetchall()]
+    conversations = [{"role": row[0], "content": row[1], "metadata": json.loads(row[2]) if row[2] else {}, "timestamp": row[3]}
+                     for row in c.fetchall()]
     conn.close()
     return conversations
 
@@ -70,8 +73,8 @@ def color_response(content):
     res = []
     parts = content.split("```")
     for i, part in enumerate(parts):
-        if i % 2 != 0: #and part.startswith("python"):
-            code = part[len("python"):].strip()
+        if i % 2 != 0:
+            code = part[part.find("\n"):]
             res.append(colored(code, "white"))
         else:
             res.append(colored(part, "blue"))
