@@ -1,0 +1,21 @@
+File: ./hint.py
+Summary: The script is a command-line tool for interacting with OpenAI's API, managing conversations, and summarizing files. Key components include:
+
+- **get_user_data_directory()**: Determines the user data directory based on the OS (Windows, macOS, Linux).
+- **init_db()**: Initializes an SQLite database for storing conversation logs.
+- **load_conversations()**: Retrieves the last 10 conversations from the database.
+- **save_conversation(conversation)**: Saves a conversation entry to the database.
+- **colored(text, color)**: Returns colored text using ANSI escape codes.
+- **color_response(content)**: Splits and colorizes Python code blocks in a response.
+- **get_response(user_prompt, sys_prompt, past_conversations, data)**: Sends a request to OpenAI's API and retrieves a response.
+- **create_log_entry(role, content, metadata)**: Creates a log entry with a timestamp.
+- **rainbow(text)**: Applies rainbow colors to text.
+- **read_multiline_input()**: Reads multiline input from the user until 'wq' is entered.
+- **summarize_file(file_path)**: Summarizes a file's content using OpenAI's API.
+- **process_directory(directory)**: Processes files in a directory, generating summaries for Python, C, and header files.
+- **write_summaries_to_file(summaries, output_file)**: Writes summaries to a specified output file.
+- **create_summary(directory, output_file)**: Generates summaries for all files in a directory and writes them to a file.
+- **main()**: Parses command-line arguments to either start a chat session, summarize a directory, or process a file prompt.
+
+The script uses `argparse` for command-line argument parsing and `tqdm` for progress display. It supports interactive chat sessions, file summarization, and directory processing.
+
