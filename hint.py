@@ -232,7 +232,7 @@ def main():
         full_prompt = file_content + prompt
         past_conversations = load_conversations()
         save_conversation(create_log_entry("user", full_prompt))
-        response = get_response(full_prompt, past_conversations)
+        response = get_response(user_prompt=full_prompt, past_conversations=past_conversations)
         print(hintstr + ": " + color_response(response))
         save_conversation(create_log_entry("system", response))
 
